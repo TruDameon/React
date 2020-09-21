@@ -1,0 +1,25 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "description": "React Course",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TruDameon/React_startup.git"
+  },
+  "keywords": [
+    "React"
+  ],
+  "author": "Dameon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TruDameon/React_startup/issues"
+  },
+  "homepage": "https://github.com/TruDameon/React_startup#readme",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
