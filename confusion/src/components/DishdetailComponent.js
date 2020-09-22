@@ -1,60 +1,59 @@
-import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, ListGroup, ListGroupItem } from 'reactstrap';
+// Presentational Component
+// Converted into functional component - A component just used for presentation and contains no state properties or constructor
 
-class Dishdetail extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            commenthere: props.dish2s.comments
-        }
-    }
+import React from 'react';
+import { Card, CardImg, CardText, CardBody, CardTitle, ListGroup, ListGroupItem } from 'reactstrap';
 
-    renderComments(commenthere) {
-        const commments2s = commenthere.map((c) => {
-            return (
-                <div>
-                    <div key={c.id} className="list-unstyled">
-                        <ListGroup>
-                            <ListGroupItem>{c.comment}</ListGroupItem>
-                            <ListGroupItem>-- {c.author}, {c.date}</ListGroupItem>
-                        </ListGroup>
-                    </div>
-                </div>
-            );
-        });
-        return commments2s;
-    }
-    
-    renderDish(dish) {
+function RenderComments({ comments }) {
+    const commments2s = comments.map((c) => {
         return (
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    <Card>
-                        <CardImg width="100%" object src={dish.image} alt={dish.name} />
-                        <CardBody>
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
-                        </CardBody>
-                    </Card>
+            <div>
+                <div key={c.id} className="list-unstyled">
+                    <ListGroup>
+                        <ListGroupItem>{c.comment}</ListGroupItem>
+                        <ListGroupItem>-- {c.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(c.date)))}</ListGroupItem>
+                    </ListGroup>
                 </div>
-                <div className="col-12 col-md-5 m-1">
-                    <header>
-                        <h4>
-                            Comments
-                        </h4>
-                    </header>
-                    { this.renderComments(this.state.commenthere)}
-                </div>
-            </div>        
-        )
-    }
+            </div>
+        );
+    });
+    return commments2s;
+}
 
-    render() {
+function RenderDish({ dish }) {
+    return (
+        <div className="row">
+            <div className="col-12 col-md-5 m-1">
+                <Card>
+                    <CardImg width="100%" object src={dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </div>
+            <div className="col-12 col-md-5 m-1">
+                <header>
+                    <h4>
+                        Comments
+                    </h4>
+                </header>
+                <RenderComments comments={dish.comments} />
+            </div>
+        </div>
+    )
+}
 
+function Dishdetail(props) {
+    if (props.dish != null) {
         return (
             <div className="container">
-                {this.renderDish(this.props.dish2s)}
+                <RenderDish dish={props.dish} />
             </div>
+        );
+    } else {
+        return (
+            <div></div>
         );
     }
 }
