@@ -12,7 +12,7 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
 
-function RenderComments({ comments, addComment, dishId }) {
+function RenderComments({ comments, postComment, dishId }) {
 
     const commments2s = comments.map((c) => {
         return (
@@ -31,7 +31,7 @@ function RenderComments({ comments, addComment, dishId }) {
             <div>
                 {commments2s}
             </div>
-            <CommentForm dishId={dishId} addComment={addComment} />
+            <CommentForm dishId={dishId} postComment={postComment} />
         </div>
     );
 }
@@ -54,7 +54,7 @@ class CommentForm extends React.Component {
     }
 
     handleSubmit(values) {
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -119,7 +119,7 @@ class CommentForm extends React.Component {
     }
 }
 
-function RenderDish({ dish, comments, addComment, dishId }) {
+function RenderDish({ dish, comments, postComment, dishId }) {
     return (
         <div className="row">
             <div className="col-12 col-md-5 m-1">
@@ -137,7 +137,7 @@ function RenderDish({ dish, comments, addComment, dishId }) {
                         Comments
                     </h4>
                 </header>
-                <RenderComments comments={comments} addComment={addComment} dishId={dishId} />
+                <RenderComments comments={comments} postComment={postComment} dishId={dishId} />
             </div>
         </div>
     )
@@ -177,7 +177,7 @@ class Dishdetail extends React.Component {
                             <hr />
                         </div>
                     </div>
-                    <RenderDish dish={this.props.dish} comments={this.props.comments} addComment={this.props.addComment} dishId={this.props.dish.id}/>
+                    <RenderDish dish={this.props.dish} comments={this.props.comments} postComment={this.props.postComment} dishId={this.props.dish.id}/>
                 </div>
             );
         } else {
